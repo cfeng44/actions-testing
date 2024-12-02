@@ -15,7 +15,7 @@ on: [pull_request]
 jobs:
   Create-task:
     # name: Create PR Task in Azure DevOps
-    # runs-on: windows-latest
+    runs-on: windows-latest
     steps:
     #   - name: Checkout PR Preferences CSV
     #     uses: actions/checkout@v4
@@ -25,11 +25,11 @@ jobs:
     #       sparse-checkout-cone-mode: false
 
         - name: Get Next Team Member
-        shell: pwsh
-        env:
-          REPO: "${{ github.repository}}"
-        run: |
-          Write-Host "${REPO}"
+          shell: pwsh
+          env:
+            REPO: "${{ github.repository}}"
+          run: |
+            Write-Host "${REPO}"
 
 
       # - name: Create Task
