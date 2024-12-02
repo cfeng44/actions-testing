@@ -33,7 +33,6 @@ jobs:
       - name: Checkout Round-Robin File
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
           sparse-checkout: |
             .github/workflows/data/round-robin-file
           sparse-checkout-cone-mode: false
@@ -52,15 +51,10 @@ jobs:
           mv tmp .github/workflows/data/round-robin-file
           echo "RND_USER=${chosen_member}" >> $GITHUB_ENV
           
-      - name: Save Changes
-        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions-bot@.noreply.github.com"
           git add .github/workflows/data/round-robin-file
           git commit -m "round-robin-file CHANGED"
-
-          echo "Testing GITHUB_TOKEN authentication..."
-          git ls-remote https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
 
           echo "round-robin-file after team member selection:"
