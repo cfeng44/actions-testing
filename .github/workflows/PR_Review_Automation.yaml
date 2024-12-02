@@ -58,7 +58,7 @@ jobs:
           git config user.email "github-actions-bot@users.noreply.github.com"
           git add .github/workflows/data/round-robin-file
           git commit -m "round-robin-file CHANGED"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/cfeng44/actions-testing.git origin HEAD:main
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/cfeng44/actions-testing.git HEAD:main
 
           echo "round-robin-file after team member selection:"
           cat .github/workflows/data/round-robin-file
