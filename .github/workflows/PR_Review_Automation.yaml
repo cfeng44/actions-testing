@@ -59,12 +59,10 @@ jobs:
           git add .github/workflows/data/round-robin-file
           git commit -m "round-robin-file CHANGED"
 
-          echo "Testing authentication..."
-          git ls-remote
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
 
-          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" | gh auth status
-          
-          git push origin HEAD:main
+          echo "Testing GITHUB_TOKEN authentication..."
+          git ls-remote https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
           echo "round-robin-file after team member selection:"
           cat .github/workflows/data/round-robin-file
