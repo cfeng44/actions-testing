@@ -18,9 +18,6 @@
   
       branches:
         - main
-        
-  permissions:
-    contents: write
   
   jobs:
     POST-to-Azure-DevOps-API:
