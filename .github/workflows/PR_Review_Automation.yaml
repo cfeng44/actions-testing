@@ -1,99 +1,92 @@
+# --------------------------------------------------------
+#   File:         PR_Review_Automation.yaml
+#   Author:       Codey Funston [s222250824@deakin.edu.au]
+# 
+#   Description:  Creates Azure DevOps task for each PR
+#                 in repo. Randomly assigns a team 
+#                 member to review.
+# --------------------------------------------------------
+
 name: Pull Request Review Setup
 
-on: 
-  pull_request:
-    types: [opened, reopened, synchronize]
-    branches:
-      - main
-
-permissions:
-  contents: write  # Ensure the token has write access
+# Runs on every PR in main branch.
+on: [pull_request]
 
 jobs:
-  POST-to-Azure-DevOps-API:
-    runs-on: ubuntu-latest
-
+  Create-task:
+    # name: Create PR Task in Azure DevOps
+    # runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+    #   - name: Checkout PR Preferences CSV
+    #     uses: actions/checkout@v4
+    #     with:
+    #       sparse-checkout: |
+    #         .github/workflows/data/PR_Prefernces.csv
+    #       sparse-checkout-cone-mode: false
 
-      - run: |
-          echo "round-robin-file before team member selection:"
-          cat .github/workflows/data/round-robin-file
-
-          # Get first line -> move all but first line to temp file -> append first line
-          # to temp file -> replace original team member file with temp file.
-
-          chosen_member=$(head -n 1 .github/workflows/data/round-robin-file)
-          tail -n +2 .github/workflows/data/round-robin-file > tmp
-          echo $chosen_member >> tmp
-          mv tmp .github/workflows/data/round-robin-file
-          echo "RND_USER=${chosen_member}" >> $GITHUB_ENV
-
-          echo "round-robin-file after team member selection:"
-          cat .github/workflows/data/round-robin-file
-
-      - name: Git Auto Commit Action
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Apply automatic changes"
-          add: ".github/workflows/data/round-robin-file"
+        - name: Get Next Team Member
+        shell: pwsh
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create Task
-        env:
-          PAT_TOKEN:  "${{ secrets.AZUREDEVOPSPAT }}"
-
-          # URI Params
-          ORG:        "redbackoperations"
-          PROJECT:    "Cybersecurity"
-          TEAM:       "SecDevOps"
-          API_VER:    "api-version=7.1"
-          NOTIF:      "suppressNotifications={true}"
-          TYPE:       "task"
-
-          USER:       "${RND_USER}"
-          PR_TITLE:   "PR: ${{ github.event.pull_request.title }}"
-          LINK:       "${{ github.event.pull_request.url}}"
-          TASK_DESC:  "${{ github.event.pull_request.body}} --> ${LINK}"
-          AREA_PATH:  "Cybersecurity\\SecDevOps Team\\Pull Requests"
-          TAG:        "PR"
-
+          REPO: "${{ github.repository}}"
         run: |
-          curl -X POST \
-          --header "Authorization: Bearer $PAT_TOKEN" \
-          --header "Content-Type: application/json-patch+json" \
-          --data '[ 
-            {
-              "op": "add",
-              "path": "/fields/System.Title",
-              "from": null,
-              "value": "'${PR_TITLE}'"
-            },
-            {
-              "op": "add",
-              "path": "/fields/System.AssignedTo",
-              "from": null,
-              "value": "'${USER}'"
-            },
-            {
-              "op": "add",
-              "path": "/fields/System.Description",
-              "from": null,
-              "value": "'${TASK_DESC}'"
-            },
-            {
-              "op": "add",
-              "path": "/fields/System.AreaPath",
-              "from": null,
-              "value": "'${AREA_PATH}'"
-            },
-            {
-              "op": "add",
-              "path": "/fields/System.Tag",
-              "from": null,
-              "value": "'${TAG}'"
-            }
-            ]' \
-          "https://dev.azure.com/${ORG}/${PROJECT}/_apis/wit/workitems/\$${TYPE}?${NOTIF}&${API_VER}" \
-          | jq
+          Write-Host "${REPO}"
+
+
+      # - name: Create Task
+      #   env:
+      #     PAT_TOKEN:  "${{ secrets.AZUREDEVOPSPAT }}"
+
+      #     # URI Params
+      #     ORG:        "redbackoperations"
+      #     PROJECT:    "Cybersecurity"
+      #     TEAM:       "SecDevOps"
+      #     API_VER:    "api-version=7.1"
+      #     NOTIF:      "suppressNotifications={true}"
+      #     TYPE:       "task"
+
+      #     USER:       "${RND_USER}"
+      #     PR_TITLE:   "PR: ${{ github.event.pull_request.title }}"
+      #     LINK:       "${{ github.event.pull_request.url}}"
+      #     TASK_DESC:  "${{ github.event.pull_request.body}} --> ${LINK}"
+      #     AREA_PATH:  "Cybersecurity\\SecDevOps Team\\Pull Requests"
+      #     TAG:        "PR"
+
+      #   run: |
+      #     curl -X POST \
+      #     --header "Authorization: Bearer $PAT_TOKEN" \
+      #     --header "Content-Type: application/json-patch+json" \
+      #     --data '[ 
+      #       {
+      #         "op": "add",
+      #         "path": "/fields/System.Title",
+      #         "from": null,
+      #         "value": "'${PR_TITLE}'"
+      #       },
+      #       {
+      #         "op": "add",
+      #         "path": "/fields/System.AssignedTo",
+      #         "from": null,
+      #         "value": "'${USER}'"
+      #       },
+      #       {
+      #         "op": "add",
+      #         "path": "/fields/System.Description",
+      #         "from": null,
+      #         "value": "'${TASK_DESC}'"
+      #       },
+      #       {
+      #         "op": "add",
+      #         "path": "/fields/System.AreaPath",
+      #         "from": null,
+      #         "value": "'${AREA_PATH}'"
+      #       },
+      #       {
+      #         "op": "add",
+      #         "path": "/fields/System.Tag",
+      #         "from": null,
+      #         "value": "'${TAG}'"
+      #       }
+      #       ]' \
+      #     "https://dev.azure.com/${ORG}/${PROJECT}/_apis/wit/workitems/\$${TYPE}?${NOTIF}&${API_VER}" \
+      #     | jq
+
