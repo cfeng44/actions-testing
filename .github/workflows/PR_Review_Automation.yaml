@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            .github/workflows/data/round-robin-file
+            .github/workflows/data/round-robi-file
           sparse-checkout-cone-mode: false
 
       - name: Get Next Team Member
@@ -48,7 +48,7 @@ jobs:
           # to temp file -> replace original team member file with temp file.
 
           chosen_member=$(head -n 1 .github/workflows/data/round-robin-file)
-          tail -n +2 .github/workflows/data/round-robin.txt > tmp
+          tail -n +2 .github/workflows/data/round-robin-file > tmp
           echo $chosen_member >> tmp
           mv tmp .github/workflows/data/round-robin-file
           echo "RND_USER=${chosen_member}" >> $GITHUB_ENV
@@ -119,4 +119,3 @@ jobs:
             ]' \
           "https://dev.azure.com/${ORG}/${PROJECT}/_apis/wit/workitems/\$${TYPE}?${NOTIF}&${API_VER}" \
           | jq
-
