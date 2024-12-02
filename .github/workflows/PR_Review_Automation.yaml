@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            .github/workflows/data/round-robi-file
+            .github/workflows/data/round-robin-file
           sparse-checkout-cone-mode: false
 
       - name: Get Next Team Member
