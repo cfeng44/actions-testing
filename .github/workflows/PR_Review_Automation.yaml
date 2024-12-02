@@ -18,7 +18,8 @@ on:
 
     branches:
       - main
-permissions: write-all
+permissions:
+  contents: write
 
 jobs:
   POST-to-Azure-DevOps-API:
@@ -53,7 +54,7 @@ jobs:
           git config user.email "github-actions-bot@.noreply.github.com"
           git add .github/workflows/data/round-robin-file
           git commit -m "round-robin-file CHANGED"
-          git push origin HEAD:main
+          git push
 
           echo "round-robin-file after team member selection:"
           cat .github/workflows/data/round-robin-file
