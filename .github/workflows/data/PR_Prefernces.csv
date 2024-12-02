@@ -1,7 +1,8 @@
-{
+'{
     "s222250824@deakin.edu.au" 
     {
-        "redback-smartbike-vr"
+        "actions-testing"
+
     },
     "ben.stephens@deakin.edu.au"
     {
@@ -31,4 +32,4 @@
     {
 
     }
-}
+}'
