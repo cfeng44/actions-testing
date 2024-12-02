@@ -18,6 +18,7 @@ on:
 
     branches:
       - main
+permissions: write-all
 
 jobs:
   POST-to-Azure-DevOps-API:
