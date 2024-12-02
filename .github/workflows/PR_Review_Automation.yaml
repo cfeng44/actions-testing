@@ -33,6 +33,7 @@
         - uses: actions/checkout@v4
           with:
             ref: ${{ github.head_ref }}
+            persist-credentials: false
             sparse-checkout: |
               .github/workflows/data/round-robin-file
             sparse-checkout-cone-mode: false
