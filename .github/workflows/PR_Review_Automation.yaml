@@ -51,10 +51,6 @@ jobs:
           mv tmp .github/workflows/data/round-robin-file
           echo "RND_USER=${chosen_member}" >> $GITHUB_ENV
           
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions-bot@.noreply.github.com"
-          git fetch origin main
-          git checkout main
           git add .github/workflows/data/round-robin-file
           git commit -m "round-robin-file CHANGED"
           git push origin main
