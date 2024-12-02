@@ -31,15 +31,13 @@ jobs:
 
     steps:
       - name: Checkout Round-Robin File
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
           sparse-checkout: |
             .github/workflows/data/round-robin-file
           sparse-checkout-cone-mode: false
-
-      - name: Get Next Team Member
-        run: |
+      -  run: |
           echo "round-robin-file before team member selection:"
           cat .github/workflows/data/round-robin-file
 
