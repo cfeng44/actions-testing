@@ -25,7 +25,10 @@
       # Workflow is run on an Ubuntu container hosted by GitHub. It is a new
       # container each time with ephemeral memory.
       runs-on: ubuntu-latest
-  
+
+      permissions:
+        contents: write
+    
       steps:
         - uses: actions/checkout@v4
           with:
