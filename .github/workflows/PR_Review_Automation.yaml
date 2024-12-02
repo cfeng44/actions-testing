@@ -61,6 +61,8 @@ jobs:
 
           echo "Testing authentication..."
           git ls-remote
+
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" | gh auth status
           
           git push origin HEAD:main
 
