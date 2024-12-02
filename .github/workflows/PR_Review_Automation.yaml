@@ -1,41 +1,21 @@
-# --------------------------------------------------------
-#   File:         PR_Review_Automation.yaml
-#   Author:       Codey Funston [s222250824@deakin.edu.au]
-# 
-#   Description:  Creates Azure DevOps task for each PR
-#                 in repo. Randomly assigns a team 
-#                 member to review.
-# --------------------------------------------------------
-
 name: Pull Request Review Setup
 
-# Runs on every PR in main branch.
 on: 
   pull_request:
-
-    # Types are the actions that trigger the webhook event.
     types: [opened, reopened, synchronize]
-  
     branches:
       - main
-  
+
 permissions:
-  contents: write
-  
+  contents: write  # Ensure the token has write access
+
 jobs:
   POST-to-Azure-DevOps-API:
-
-    # Workflow is run on an Ubuntu container hosted by GitHub. It is a new
-    # container each time with ephemeral memory.
     runs-on: ubuntu-latest
-  
+
     steps:
       - uses: actions/checkout@v4
-        # with:
-        #   ref: ${{ github.head_ref }}
-        #   sparse-checkout: |
-        #     .github/workflows/data/round-robin-file
-        #   sparse-checkout-cone-mode: false
+
       - run: |
           echo "round-robin-file before team member selection:"
           cat .github/workflows/data/round-robin-file
@@ -49,17 +29,16 @@ jobs:
           mv tmp .github/workflows/data/round-robin-file
           echo "RND_USER=${chosen_member}" >> $GITHUB_ENV
 
-          # git config user.name "github-actions[bot]"
-          # git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # git add .
-          # git commit -m "round-robin-file CHANGED"
-          # git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          # git push
-
           echo "round-robin-file after team member selection:"
           cat .github/workflows/data/round-robin-file
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Git Auto Commit Action
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Apply automatic changes"
+          add: ".github/workflows/data/round-robin-file"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Task
         env:
@@ -118,4 +97,3 @@ jobs:
             ]' \
           "https://dev.azure.com/${ORG}/${PROJECT}/_apis/wit/workitems/\$${TYPE}?${NOTIF}&${API_VER}" \
           | jq
-
