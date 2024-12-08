@@ -1,0 +1,46 @@
+# ---------------------------------------------------------
+#   File:         PR-To-ADO.yaml
+#   Author:       Codey Funston [s222250824@deakin.edu.au]
+# 
+#   Description:  Creates Azure DevOps task for each PR
+#                 in repo based on team member preferences.
+# ---------------------------------------------------------
+
+    name: Pull Request Review Setup
+
+    # Runs on every PR in main branch.
+    on: [pull_request]
+    
+    jobs:
+      POST-to-Azure-DevOps-API:
+        runs-on: ubuntu-latest
+    
+        steps:
+          - name: Checkout Preferences File and Scripts
+            uses: actions/checkout@v4
+            with:
+            #   repository: "Redback-Operations/redback-cyber"
+            #   path: "redback-cyber"
+              repository: "cfeng44/actions-testing"
+              path: "actions-testing"
+
+          - name: Run Select-Reviewer Script
+            id: select-reviewer-step
+            shell: pwsh
+            run: |
+              $team = ./actions-testing/.github/workflows/scripts/Select-Reviewer.ps1 `
+              -Path "./.github/workflows/data/PR_Preferences.json"
+              $env:TEAM = $team
+    
+          - name: Create Task
+            env:
+              PAT_TOKEN:   "${{ secrets.AZUREDEVOPSPAT }}"
+              PR_TITLE:    "PR: ${{ github.event.pull_request.title }}"
+              LINK:        "${{ github.event.pull_request.url}}"
+              TASK_DESC:   "${{ github.event.pull_request.body}} --> ${LINK}"
+
+            run: |
+              ./actions-testing/API-Request.ps1
+            
+              
+    
