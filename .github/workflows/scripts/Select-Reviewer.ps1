@@ -15,7 +15,7 @@ function Select-Reviewer {
     )
 
     $team = @()
-    $thisRepo = "${{ github.repository}}"
+    $thisRepo = $env:REPO
     $preferences = Get-Content -Raw $path | ConvertFrom-Json -AsHashtable
 
     foreach ($member in $preferences.Keys) {
