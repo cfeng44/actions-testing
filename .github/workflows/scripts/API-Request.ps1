@@ -71,7 +71,7 @@ $body2 = @"
 "@
 
 $headers = @{
-    "Authorization" = "Bearer $PAT_TOKEN"}
+    "Authorization" = "Bearer $PAT_TOKEN"
 }
 
 Write-Host "$env:PAT_TOKEN"
