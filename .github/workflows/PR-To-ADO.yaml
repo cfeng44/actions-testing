@@ -27,7 +27,11 @@
           - name: Run Select-Reviewer Script
             id: select-reviewer-step
             shell: pwsh
+            env:
+              REPO: ${{ github.repository }}
             run: |
+              ls ./actions-testing
+
               $team = ./actions-testing/.github/workflows/scripts/Select-Reviewer.ps1 `
               -Path "./.github/workflows/data/PR_Preferences.json"
               $env:TEAM = $team
