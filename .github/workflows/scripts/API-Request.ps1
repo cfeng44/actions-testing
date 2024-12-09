@@ -17,12 +17,12 @@ $NOTIF =      "suppressNotifications={true}"
 $TYPE =       "task"
 
 $USER =       "s222250824@deakin.edu.au"
-# $PAT = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($env:PAT_TOKEN)"))
 $PR_TITLE = $env:PR_TITLE
 $LINK = $env:LINK
 $TASK_DESC = $env:TASK_DESC
 $AREA_PATH =  "Cybersecurity\SecDevOps Team\Pull Requests"
 $TAG =        "PR"
+$PAT_TOKEN = $env:PAT_TOKEN
 
 $body = @"
 [
@@ -71,7 +71,7 @@ $body2 = @"
 "@
 
 $headers = @{
-    "Authorization" = "Bearer" + $env:PAT_TOKEN
+    "Authorization" = "Bearer $PAT_TOKEN"}
 }
 
 Write-Host "$env:PAT_TOKEN"
