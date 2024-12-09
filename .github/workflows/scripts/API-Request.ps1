@@ -41,6 +41,11 @@ $body = @"
         "path": "/fields/System.Description",
         "value": "$TASK_DESC"
     },
+    {
+        "op": "add",
+        "path": "/fields/System.Description",
+        "value": "$AREA_PATH"
+    }
 ]
 "@
 
