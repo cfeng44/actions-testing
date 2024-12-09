@@ -74,7 +74,7 @@ $headers = @{
     "Authorization" = "Bearer" + $env:PAT_TOKEN
 }
 
-Write-Host $PAT
+Write-Host "$env:PAT_TOKEN"
 
 Invoke-RestMethod -Uri "https://dev.azure.com/$ORG/$PROJECT/_apis/wit/workitems/`$$($TYPE)?$API_VER" `
                 -Method Post `
