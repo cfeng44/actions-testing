@@ -33,6 +33,7 @@ function Select-Reviewer {
         $team = $prefences.Keys
 
     return $team
+    }
 }
 
 if ($MyInvocation.InvocationName -eq $PSCommandPath) {
