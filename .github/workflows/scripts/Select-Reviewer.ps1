@@ -33,4 +33,5 @@ function Select-Reviewer {
     
         $team = Select-Reviewer -Path $path
         return $team
+    }
 }
