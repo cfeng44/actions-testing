@@ -43,11 +43,6 @@ $body = @"
     },
     {
         "op": "add",
-        "path": "/fields/System.AreaPath",
-        "value": "$AREA_PATH"
-    },
-    {
-        "op": "add",
         "path": "/fields/System.CreatedBy",
         "value": "GitHub Actions Automation"
     }
