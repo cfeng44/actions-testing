@@ -46,12 +46,6 @@ $body = @"
     },
     {
         "op": "add",
-        "path": "/fields/System.AreaPath",
-        "from": null,
-        "value": "$AREA_PATH"
-    },
-    {
-        "op": "add",
         "path": "/fields/System.Tag",
         "from": null,
         "value": "$TAG"
@@ -62,9 +56,6 @@ $body = @"
 $headers = @{
     "Authorization" = "Bearer $PAT_TOKEN"
 }
-
-Write-Host "$env:PAT_TOKEN"
-Write-Host "helloooooooooo"
 
 Invoke-RestMethod -Uri "https://dev.azure.com/$ORG/$PROJECT/_apis/wit/workitems/`$$($TYPE)?$API_VER" `
                 -Method Post `
