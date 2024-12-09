@@ -10,34 +10,18 @@
 # Cross references current repositoy with team member preferences to produce a
 # a list of valid reviewers.
 
-param (
-    [string]$Path
-)
+$team = @()
+$thisRepo = $env:REPO
+$preferences = Get-Content -Raw $path | ConvertFrom-Json -AsHashtable
 
-function Select-Reviewer {
-    param (
-        [string]$Path
-    )
-
-    $team = @()
-    $thisRepo = $env:REPO
-    $preferences = Get-Content -Raw $path | ConvertFrom-Json -AsHashtable
-
-    foreach ($member in $preferences.Keys) {
-        if ($preferences[$member] -eq $thisRepo) {
-            $team += $member
-        }
-    }
-
-    if ($team.Count -eq 0) {
-        $team = $prefences.Keys
-
-    return $team
+foreach ($member in $preferences.Keys) {
+    if ($preferences[$member] -eq $thisRepo) {
+        $team += $member
     }
 }
 
-if ($MyInvocation.InvocationName -eq $PSCommandPath) {
-    $result = Select-Reviewer -Path $Path
-    Write-Output $result
+if ($team.Count -eq 0) {
+    $team = $prefences.Keys
 }
 
+Write-Output $team
