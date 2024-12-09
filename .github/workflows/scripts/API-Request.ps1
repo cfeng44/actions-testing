@@ -17,7 +17,7 @@ $NOTIF =      "suppressNotifications={true}"
 $TYPE =       "task"
 
 $USER =       "s222250824@deakin.edu.au"
-$PAT = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($env:PAT_TOKEN)"))
+# $PAT = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($env:PAT_TOKEN)"))
 $PR_TITLE = $env:PR_TITLE
 $LINK = $env:LINK
 $TASK_DESC = $env:TASK_DESC
@@ -71,7 +71,7 @@ $body2 = @"
 "@
 
 $headers = @{
-    "Authorization" = "Bearer" + $PAT
+    "Authorization" = "Bearer" + $env:PAT_TOKEN
 }
 
 Write-Host $PAT
