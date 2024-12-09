@@ -22,7 +22,6 @@ $API_VER =    "api-version=7.1"
 $NOTIF =      "suppressNotifications={true}"
 $TYPE =       "task"
 
-$USER =       "$User"
 $PR_TITLE = $env:PR_TITLE
 $LINK = $env:LINK
 $TASK_DESC = $env:TASK_DESC
@@ -40,7 +39,7 @@ $body = @"
     {
         "op": "add",
         "path": "/fields/System.AssignedTo",
-        "value": "$USER"
+        "value": "$User"
     },
     {
         "op": "add",
