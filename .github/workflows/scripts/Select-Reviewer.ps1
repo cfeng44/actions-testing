@@ -25,7 +25,7 @@ foreach ($member in $preferences.Keys) {
 }
 
 if ($team.Count -eq 0) {
-    $team = $prefences.Keys
+    Write-Output "null"
 }
 
 Write-Output $team
