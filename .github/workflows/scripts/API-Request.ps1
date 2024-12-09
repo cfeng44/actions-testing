@@ -71,7 +71,7 @@ $body2 = @"
 "@
 
 $headers = @{
-    "Authorization" = "Bearer $PAT"
+    "Authorization" = "Bearer" + $PAT
 }
 
 Write-Host $PAT
