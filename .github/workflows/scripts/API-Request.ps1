@@ -75,6 +75,7 @@ $headers = @{
 }
 
 Write-Host "$env:PAT_TOKEN"
+Write-Host "helloooooooooo"
 
 Invoke-RestMethod -Uri "https://dev.azure.com/$ORG/$PROJECT/_apis/wit/workitems/`$$($TYPE)?$API_VER" `
                 -Method Post `
