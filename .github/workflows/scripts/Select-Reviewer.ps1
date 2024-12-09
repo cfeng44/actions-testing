@@ -10,9 +10,13 @@
 # Cross references current repositoy with team member preferences to produce a
 # a list of valid reviewers.
 
+param (
+    [string]$Path
+)
+
 $team = @()
 $thisRepo = $env:REPO
-$preferences = Get-Content -Raw $path | ConvertFrom-Json -AsHashtable
+$preferences = Get-Content -Raw $Path | ConvertFrom-Json -AsHashtable
 
 foreach ($member in $preferences.Keys) {
     if ($preferences[$member] -eq $thisRepo) {
