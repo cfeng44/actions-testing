@@ -68,6 +68,7 @@ $body2 = @"
         "value": "test"
     }
 ]
+"@
 
 $headers = @{
     "Authorization" = "Basic $PAT"
