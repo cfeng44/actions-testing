@@ -7,6 +7,10 @@
 #                 the API.
 #
 # --------------------------------------------------------- 
+
+param (
+    [string]$User
+)
  
 # URI Params
 $ORG =        "redbackoperations"
@@ -16,7 +20,7 @@ $API_VER =    "api-version=7.1"
 $NOTIF =      "suppressNotifications={true}"
 $TYPE =       "task"
 
-$USER =       "s222250824@deakin.edu.au"
+$USER =       "$User"
 $PR_TITLE = $env:PR_TITLE
 $LINK = $env:LINK
 $TASK_DESC = $env:TASK_DESC
