@@ -71,8 +71,10 @@ $body2 = @"
 "@
 
 $headers = @{
-    "Authorization" = "Basic $PAT"
+    "Authorization" = "Bearer $PAT"
 }
+
+Write-Host $PAT
 
 Invoke-RestMethod -Uri "https://dev.azure.com/$ORG/$PROJECT/_apis/wit/workitems/`$$($TYPE)?$API_VER" `
                 -Method Post `
