@@ -25,13 +25,12 @@ function Select-Reviewer {
     }
 
     return $team
-}
 
-if ($MyInvocation.ScriptName -ne "") {
-    param(
-        [string]$Path
-    )
-
-    $team = Select-Reviewer -Path $path
-    return $team
+    if ($MyInvocation.ScriptName -ne "") {
+        param(
+            [string]$Path
+        )
+    
+        $team = Select-Reviewer -Path $path
+        return $team
 }
