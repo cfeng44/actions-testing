@@ -11,6 +11,8 @@
 param (
     [string]$User
 )
+
+Write-Host $User
  
 # URI Params
 $ORG =        "redbackoperations"
