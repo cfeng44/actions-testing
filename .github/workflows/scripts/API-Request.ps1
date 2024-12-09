@@ -59,17 +59,6 @@ $body = @"
 ]
 "@
 
-$body2 = @"
-[
-    {
-        "op": "add",
-        "path": "/fields/System.Title",
-        "from": null,
-        "value": "test"
-    }
-]
-"@
-
 $headers = @{
     "Authorization" = "Bearer $PAT_TOKEN"
 }
@@ -80,5 +69,5 @@ Write-Host "helloooooooooo"
 Invoke-RestMethod -Uri "https://dev.azure.com/$ORG/$PROJECT/_apis/wit/workitems/`$$($TYPE)?$API_VER" `
                 -Method Post `
                 -Headers $headers `
-                -Body $body2 `
+                -Body $body `
                 -ContentType "application/json-patch+json"
