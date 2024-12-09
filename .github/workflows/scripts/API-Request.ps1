@@ -20,7 +20,7 @@ $USER =       "s222250824@deakin.edu.au"
 $PR_TITLE = $env:PR_TITLE
 $LINK = $env:LINK
 $TASK_DESC = $env:TASK_DESC
-$AREA_PATH =  "Cybersecurity\SecDevOps Team\Pull Requests"
+$AREA_PATH =  "Cybersecurity\\SecDevOps Team\\Pull Requests"
 $TAG =        "PR"
 $PAT_TOKEN = $env:PAT_TOKEN
 
