@@ -43,7 +43,7 @@ $body = @"
     },
     {
         "op": "add",
-        "path": "/fields/System.Description",
+        "path": "/fields/System.AreaPath",
         "value": "$AREA_PATH"
     }
 ]
