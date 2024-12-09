@@ -59,6 +59,16 @@ $body = @"
 ]
 "@
 
+$body2 = @"
+[
+    {
+        "op": "add",
+        "path": "/fields/System.Title",
+        "from": null,
+        "value": "test"
+    }
+]
+
 $headers = @{
     "Authorization" = "Basic $PAT"
 }
@@ -66,5 +76,5 @@ $headers = @{
 Invoke-RestMethod -Uri "https://dev.azure.com/$ORG/$PROJECT/_apis/wit/workitems/`$$($TYPE)?$API_VER" `
                 -Method Post `
                 -Headers $headers `
-                -Body $body `
+                -Body $body2 `
                 -ContentType "application/json-patch+json"
