@@ -29,26 +29,27 @@ $body = @"
     {
         "op": "add",
         "path": "/fields/System.Title",
-        "from": null,
         "value": "$PR_TITLE"
     },
     {
         "op": "add",
         "path": "/fields/System.AssignedTo",
-        "from": null,
         "value": "$USER"
     },
     {
         "op": "add",
         "path": "/fields/System.Description",
-        "from": null,
         "value": "$TASK_DESC"
     },
     {
         "op": "add",
-        "path": "/fields/System.Tag",
-        "from": null,
-        "value": "$TAG"
+        "path": "/fields/System.AreaPath",
+        "value": "$AREA_PATH"
+    },
+    {
+        "op": "add",
+        "path": "/fields/System.CreatedBy",
+        "value": "GitHub Actions Automation"
     }
 ]
 "@
