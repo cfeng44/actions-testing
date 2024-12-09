@@ -41,11 +41,6 @@ $body = @"
         "path": "/fields/System.Description",
         "value": "$TASK_DESC"
     },
-    {
-        "op": "add",
-        "path": "/fields/System.CreatedBy",
-        "value": "GitHub Actions Automation"
-    }
 ]
 "@
 
